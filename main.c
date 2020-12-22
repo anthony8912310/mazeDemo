@@ -9,11 +9,11 @@ int left(const char * const, int, int, int,int);
 int right(const char * const, int, int, int,int);
 void find_path(const char * const maze, int m, int n, char * const result_maze)
 {
-    int i=m-1,j=0,lastStep[100],count=0;
+    int i=m-1,j=0,lastStep[100],count=1;
     int path[m][n][4];
     int haveGone[m][n];
     
-    //haveGone[i][j]=1;
+    
     *(result_maze+i*n+j)='2';
     //Initialization
     for (int p=0;p<m; p++)
@@ -24,7 +24,7 @@ void find_path(const char * const maze, int m, int n, char * const result_maze)
     for (int p=0;p<m; p++)
     for (int q=0; q<n; q++)
         haveGone[p][q]=0;
-    
+    haveGone[i][j]=1;
     while (1)
     {
         //debug
@@ -58,6 +58,7 @@ void find_path(const char * const maze, int m, int n, char * const result_maze)
             path[i][j][3]=1;
             printf("可以往左走\n");
         }
+        
         
         //find_path
         if (path[i][j][0]==1&&haveGone[i-1][j]==0) //上面可以走&&上面還沒走過
@@ -97,7 +98,7 @@ void find_path(const char * const maze, int m, int n, char * const result_maze)
         {
             count--;
             *(result_maze+i*n+j)='0';
-            if (count<0)
+            if (count<1)
             {
                 printf("無路可走\n");
                 *result_maze='X';
